@@ -11,18 +11,22 @@
   <h1>Welcome to ConnectHub Dashboard</h1>
 
   <div id="dashboard">
-    <!-- Your dashboard content goes here -->
+    <h2>Previous Chats</h2>
+    <ul id="previousChatsList"></ul>
+    
+    <!-- Profile button -->
+    <button id="profileButton" onclick="navigateToProfile()">Go to Profile</button>
   </div>
 
   <script>
     // Initialize Firebase
     const firebaseConfig = {
-  apiKey: "AIzaSyA1KfpU2QHeVI_TR1BK8FTD7HiMQ6aGt_w",
-  authDomain: "connecthub-5e35c.firebaseapp.com",
-  projectId: "connecthub-5e35c",
-  storageBucket: "connecthub-5e35c.appspot.com",
-  messagingSenderId: "662564194836",
-  appId: "1:662564194836:web:2d111314879b86d70b3501"
+      apiKey: 'YOUR_API_KEY',
+      authDomain: 'YOUR_AUTH_DOMAIN',
+      projectId: 'YOUR_PROJECT_ID',
+      storageBucket: 'YOUR_STORAGE_BUCKET',
+      messagingSenderId: 'YOUR_MESSAGING_SENDER_ID',
+      appId: 'YOUR_APP_ID'
     };
 
     firebase.initializeApp(firebaseConfig);
@@ -30,23 +34,29 @@
     // Get a reference to the Firestore database
     const db = firebase.firestore();
 
-    // Example: Fetch data from Firebase
-    const dashboardElement = document.getElementById('dashboard');
+    // Example: Fetch data (previous users) from Firebase
+    const previousChatsList = document.getElementById('previousChatsList');
 
-    // Replace 'yourCollection' with the actual collection name in your Firestore
-    db.collection('userData').get()
+    // Replace 'previousChats' with the actual collection name storing chat information
+    db.collection('previousChats').get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          // Display data on the dashboard
+          // Display previous users on the dashboard
           const data = doc.data();
-          const card = document.createElement('div');
-          card.innerHTML = `<p>${data.field1}</p><p>${data.field2}</p>`;
-          dashboardElement.appendChild(card);
+          const listItem = document.createElement('li');
+          listItem.textContent = data.userName; // Replace with the actual field name in your data
+          previousChatsList.appendChild(listItem);
         });
       })
       .catch((error) => {
         console.log('Error getting documents: ', error);
       });
+
+    // Function to navigate to the profile page
+    function navigateToProfile() {
+      // Replace 'profile.html' with the actual HTML file for the profile page
+      window.location.href = 'profile.html';
+    }
   </script>
 </body>
 </html>
