@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.4.0/firebase-firestore.js"></script>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    #profileContainer {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    h1 {
+      color: #DB3300;
+    }
+
+    p {
+      margin: 8px 0;
+    }
+  </style>
+  <title>User Profile</title>
+</head>
+<body>
+  <div id="profileContainer">
+    <h1>User Profile</h1>
+
+    <!-- Profile details -->
+    <div id="profileDetails"></div>
+  </div>
+
+  <script>
+    // Initialize Firebase
+    const firebaseConfig = {
+      apiKey: 'YOUR_API_KEY',
+      authDomain: 'YOUR_AUTH_DOMAIN',
+      projectId: 'YOUR_PROJECT_ID',
+      storageBucket: 'YOUR_STORAGE_BUCKET',
+      messagingSenderId: 'YOUR_MESSAGING_SENDER_ID',
+      appId: 'YOUR_APP_ID'
+    };
+
+    firebase.initializeApp(firebaseConfig);
+
+    // Get a reference to the Firestore database
+    const db = firebase.firestore();
+
+    // Example: Fetch data (profile details) from Firebase
+    const profileDetailsContainer = document.getElementById('profileDetails');
+
+    // Replace 'userData' with the actual collection name storing user profile information
+    db.collection('userData').get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          // Display user profile details
+          const data = doc.data();
+          const profileHTML = `
+            <p><strong>Name:</strong> ${data.name}</p>
+            <p><strong>Email:</strong> ${data.email}</p>
+            <p><strong>Age:</strong> ${data.age}</p>
+            <!-- Add more fields as needed -->
+          `;
+          profileDetailsContainer.innerHTML = profileHTML;
+        });
+      })
+      .catch((error) => {
+        console.log('Error getting documents: ', error);
+      });
+  </script>
+</body>
+</html>
