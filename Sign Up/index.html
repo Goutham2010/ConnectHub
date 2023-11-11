@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    #signupContainer {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    h1 {
+      color: #DB3300;
+    }
+
+    #googleSignUpButton, #emailSignUpButton {
+      background-color: #DB3300;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 20px;
+      transition: background-color 0.3s;
+    }
+
+    #googleSignUpButton:hover, #emailSignUpButton:hover {
+      background-color: #a62100;
+    }
+  </style>
+</head>
+<body>
+  <div id="signupContainer">
+    <h1>Sign Up</h1>
+
+    <!-- Sign up with Google button -->
+    <button id="googleSignUpButton" onclick="signUpWithGoogle()">Sign Up with Google</button>
+
+    <!-- Sign up with Email button -->
+    <button id="emailSignUpButton" onclick="signUpWithEmail()">Sign Up with Email</button>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js"></script>
+
+  <script>
+    // Replace these values with your actual Firebase configuration
+    const firebaseConfig = {
+  apiKey: "AIzaSyA1KfpU2QHeVI_TR1BK8FTD7HiMQ6aGt_w",
+  authDomain: "connecthub-5e35c.firebaseapp.com",
+  projectId: "connecthub-5e35c",
+  storageBucket: "connecthub-5e35c.appspot.com",
+  messagingSenderId: "662564194836",
+  appId: "1:662564194836:web:2d111314879b86d70b3501"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+
+    // Function to sign up with Google
+    function signUpWithGoogle() {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      firebase.auth().signInWithPopup(provider)
+        .then((result) => {
+          // User signed in with Google. You can access user information from the result object.
+          console.log(result.user);
+        })
+        .catch((error) => {
+          console.error(error.message);
+        });
+    }
+
+    // Function to sign up with Email
+    function signUpWithEmail() {
+      const email = prompt("Enter your email:");
+      const password = prompt("Enter your password:");
+      
+      firebase.auth().createUserWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          // User signed up with email. You can access user information from the userCredential object.
+          console.log(userCredential.user);
+        })
+        .catch((error) => {
+          console.error(error.message);
+        });
+    }
+  </script>
+</body>
+</html>
