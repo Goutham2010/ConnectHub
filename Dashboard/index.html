@@ -1,1 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.4.0/firebase-firestore.js"></script>
+  <title>ConnectHub Dashboard</title>
+</head>
+<body>
+  <h1>Welcome to ConnectHub Dashboard</h1>
 
+  <div id="dashboard">
+    <!-- Your dashboard content goes here -->
+  </div>
+
+  <script>
+    // Initialize Firebase
+    const firebaseConfig = {
+  apiKey: "AIzaSyA1KfpU2QHeVI_TR1BK8FTD7HiMQ6aGt_w",
+  authDomain: "connecthub-5e35c.firebaseapp.com",
+  projectId: "connecthub-5e35c",
+  storageBucket: "connecthub-5e35c.appspot.com",
+  messagingSenderId: "662564194836",
+  appId: "1:662564194836:web:2d111314879b86d70b3501"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+
+    // Get a reference to the Firestore database
+    const db = firebase.firestore();
+
+    // Example: Fetch data from Firebase
+    const dashboardElement = document.getElementById('dashboard');
+
+    // Replace 'yourCollection' with the actual collection name in your Firestore
+    db.collection('userData').get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          // Display data on the dashboard
+          const data = doc.data();
+          const card = document.createElement('div');
+          card.innerHTML = `<p>${data.field1}</p><p>${data.field2}</p>`;
+          dashboardElement.appendChild(card);
+        });
+      })
+      .catch((error) => {
+        console.log('Error getting documents: ', error);
+      });
+  </script>
+</body>
+</html>
