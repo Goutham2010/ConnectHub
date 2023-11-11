@@ -34,6 +34,21 @@
     p {
       margin: 8px 0;
     }
+        #backButton {
+      background-color: #DB3300;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 20px;
+      transition: background-color 0.3s;
+    }
+
+    #backButton:hover {
+      background-color: #a62100;
+    }
   </style>
   <title>User Profile</title>
 </head>
@@ -43,6 +58,7 @@
 
     <!-- Profile details -->
     <div id="profileDetails"></div>
+    <button id="backButton" onclick="navigateBack()">Back to Dashboard</button>
   </div>
 
   <script>
@@ -82,6 +98,11 @@
       .catch((error) => {
         console.log('Error getting documents: ', error);
       });
+        // Function to navigate back to the dashboard
+    function navigateBack() {
+      // Replace 'dashboard.html' with the actual HTML file for the dashboard
+      window.location.href = 'dashboard.html';
+    }
   </script>
 </body>
 </html>
