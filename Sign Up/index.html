@@ -71,8 +71,9 @@
   messagingSenderId: "662564194836",
   appId: "1:662564194836:web:2d111314879b86d70b3501"
     };
-
-    firebase.initializeApp(firebaseConfig);
+const firebaseApp = firebaseConfig;
+    
+    firebase.initializeApp(firebaseApp);
 
     // Function to sign up with Google
     function signUpWithGoogle() {
